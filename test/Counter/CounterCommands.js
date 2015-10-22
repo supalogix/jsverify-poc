@@ -1,5 +1,5 @@
 var Commands = require("./Commands.js");
-var Counter = require("./Counter.js");
+var Counter = require("../../src/Counter.js");
 var Increment = require("./Increment.js");
 var Get = require("./Get.js");
 
