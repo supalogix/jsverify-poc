@@ -1,10 +1,10 @@
-export default class Increment {
+export default class Decrement {
    run(counter) {
-      return counter.increment();
+      return counter.decrement();
    }
 
    nextState(state) {
-      return state + 1;
+      return state - 1;
    }
 
    preCondition(state) {
@@ -12,6 +12,6 @@ export default class Increment {
    }
 
    postCondition(state, result) {
-      return result === ( state + 1 );
+      return result === ( state - 1 );
    }
 }

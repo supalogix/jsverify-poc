@@ -1,28 +1,21 @@
-var Command = require("./Command.js");
+export default class Get {
+   constructor() {
+      this.name = "Get";
+   }
 
-function Get() {
-   this.name = "Get";
+   run(counter) {
+      return counter.get()
+   }
+
+   nextState(state) {
+      return state;
+   }
+
+   preCondition(state) {
+      return true;
+   }
+
+   postCondition(state, result) {
+      return result === state;
+   }
 }
-
-Get.prototype = new Command();
-
-Get.prototype.run = function( counter ) {
-   return counter.get();
-};
-
-Get.prototype.nextState = function( state ) {
-   return state;
-};
-
-Get.prototype.preCondition = function( state ) {
-   return true;
-};
-
-Get.prototype.postCondition = function( state, result ) {
-   if( state < 0 )
-      return false;
-
-   return result === state;
-};
-
-module.exports = Get;

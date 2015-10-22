@@ -1,35 +1,33 @@
 var CounterCommands = require("./CounterCommands.js");
 var jsv = require("jsverify");
 
-function Generator() {}
+export default class Generator {
+   static getCounterCommands() {
+      var generator = () => {
+         var counterCommands = new CounterCommands();
+         var initialState = counterCommands.getInitialState();
+         var sut = counterCommands.getNewSut( initialState );
 
-Generator.getCounterCommands = function() {
-   return jsv.bless({
-      generator: generator
-   });
-}
+         var commands = [];
 
-function generator() {
-   var counterCommands = new CounterCommands();
-   var initialState = counterCommands.getInitialState();
-   var sut = counterCommands.getNewSut( initialState );
+         var limit = Math.floor(Math.random() * 100);
 
-   var commands = [];
+         for( var i = 0; i < limit; i++ ) {
+            var command = counterCommands.genCommand();
+            commands.push( command );
+         }
 
-   var limit = Math.floor(Math.random() * 100);
+         var json = {
+            "sut": sut,
+            "state": initialState,
+            "commands": commands
+         };
 
-   for( var i = 0; i < limit; i++ ) {
-      var command = counterCommands.genCommand();
-      commands.push( command );
+         return json;
+      };
+
+      return jsv.bless({
+         generator: generator
+      });
    }
-
-   var json = {
-      "sut": sut,
-      "state": initialState,
-      "commands": commands
-   };
-
-   return json;
 }
-
-module.exports = Generator;
