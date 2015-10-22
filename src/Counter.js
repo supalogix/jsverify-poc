@@ -7,6 +7,11 @@ Counter.prototype.increment = function() {
    return this.n;
 }
 
+Counter.prototype.decrement = function() {
+   this.n = this.n - 1;
+   return this.n;
+}
+
 Counter.prototype.get = function() {
    return this.n;
 }

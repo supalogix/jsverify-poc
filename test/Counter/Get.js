@@ -1,6 +1,7 @@
 var Command = require("./Command.js");
 
 function Get() {
+   this.name = "Get";
 }
 
 Get.prototype = new Command();
@@ -18,6 +19,9 @@ Get.prototype.preCondition = function( state ) {
 };
 
 Get.prototype.postCondition = function( state, result ) {
+   if( state < 0 )
+      return false;
+
    return result === state;
 };
 

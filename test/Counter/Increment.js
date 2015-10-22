@@ -1,6 +1,8 @@
 var Command = require("./Command.js");
 
-function Increment() { }
+function Increment() { 
+   this.name = "Increment";
+}
 
 Increment.prototype = new Command();
 

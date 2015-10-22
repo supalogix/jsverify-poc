@@ -1,6 +1,7 @@
 var Commands = require("./Commands.js");
 var Counter = require("../../src/Counter.js");
 var Increment = require("./Increment.js");
+var Decrement = require("./Decrement.js");
 var Get = require("./Get.js");
 
 function CounterCommands() {}
@@ -17,7 +18,12 @@ CounterCommands.prototype.getInitialState = function() {
 };
 
 CounterCommands.prototype.genCommand = function(state) {
-   var idx = Math.floor(Math.random() * 2);
+   var idx = Math.floor(Math.random() * 3);
+   switch(idx) {
+      case 0: return new Increment();
+      case 1: return new Get();
+      case 2: return new Decrement();
+   };
    return (idx === 0) ? new Increment() : new Get();
 };
 
