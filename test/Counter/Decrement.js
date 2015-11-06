@@ -1,4 +1,8 @@
 export default class Decrement {
+   constructor() {
+      this.name = "Decrement";
+   }
+
    run(counter) {
       return counter.decrement();
    }

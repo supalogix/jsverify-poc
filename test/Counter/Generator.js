@@ -1,47 +1,44 @@
-var CounterCommands = require("./CounterCommands.js");
-var Increment = require("./Increment.js");
-var Decrement = require("./Decrement.js");
-var Get = require("./Get.js");
+let Counter = require("../../src/Counter.js");
+let Increment = require("./Increment.js");
+let Decrement = require("./Decrement.js");
+let Get = require("./Get.js");
 
-var jsv = require("jsverify");
+let jsv = require("jsverify");
 
-export default class Generator {
-   static getCounterCommands() {
-      function* commandsGenerator(limit) {
-         for(let i = 0; i < limit; i ++) {
-            var idx = Math.floor(Math.random() * 3);
+export default function() {
+   let initialState = randomInt(100); 
+   let sut = new Counter(initialState);
 
-            switch(idx) {
-               case 0: yield new Increment();
-               case 1: yield new Get();
-               case 2: yield new Decrement();
-            };
-         }
-      }
+   let history = [];
 
-      let generator = () => {
-         let counterCommands = new CounterCommands();
-         let initialState = counterCommands.getInitialState();
-         let sut = counterCommands.getNewSut( initialState );
+   let limit = randomInt(100); 
 
-         let commands = [];
+   var generator = commandsGenerator(limit);
 
-         let limit = Math.floor(Math.random() * 100);
+   let json = {
+      "sut": sut,
+      "state": initialState,
+      "history": history,
+      "commands": generator
+   };
 
-         for( let command of commandsGenerator(limit) )
-            commands.push( command );
+   return json;
+}
 
-         let json = {
-            "sut": sut,
-            "state": initialState,
-            "commands": commands
+function commandsGenerator(limit) {
+   return function*(){
+      for(let i = 0; i < limit; i ++) {
+         var idx = Math.floor(Math.random() * 3);
+
+         switch(idx) {
+            case 0: yield new Increment();
+            case 1: yield new Get();
+            case 2: yield new Decrement();
          };
-
-         return json;
-      };
-
-      return jsv.bless({
-         generator: generator
-      });
+      }
    }
+}
+
+function randomInt(limit) {
+   return Math.floor(Math.random() * limit);
 }

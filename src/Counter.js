@@ -1,19 +1,21 @@
-function Counter(n) {
-   this.n = n;
-}
+export default class Counter {
+   constructor(n) {
+      this.n = n;
+   }
 
-Counter.prototype.increment = function() {
-   this.n = this.n + 1;
-   return this.n;
-}
+   increment() {
+      this.n = this.n + 1;
+      return this.n;
+   }
 
-Counter.prototype.decrement = function() {
-   this.n = this.n - 1;
-   return this.n;
-}
+   decrement() {
+      this.n = this.n - 1;
+      return this.n;
+   }
 
-Counter.prototype.get = function() {
-   return this.n;
+   get() {
+      return this.n;
+   }
 }
 
 module.exports = Counter;

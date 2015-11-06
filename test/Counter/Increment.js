@@ -1,4 +1,8 @@
 export default class Increment {
+   constructor() {
+      this.name = "Increment";
+   }
+   
    run(counter) {
       return counter.increment();
    }

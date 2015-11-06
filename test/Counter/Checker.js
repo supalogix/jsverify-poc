@@ -1,26 +1,18 @@
-var assert = require("assert");
-var _ = require("underscore");
+let assert = require("assert");
 
-export default class Checker {
-   static getChecker() {
-      return (props) => {
-         var sut = props.sut;
-         var initialState = props.initialState;
-         var commands = props.commands;
+export default function( props ) {
+   let sut = props.sut;
+   let initialState = props.initialState;
+   let history = props.history;
+   let commands = props.commands;
 
-         if( commands.length > 0 ) {
-            var command = commands[0];
-            var result = command.preCondition();
-         }
-         
-         commands.forEach(function(command) {
-            var lastState = sut.get();
+   for(let command of commands() ) {
+      let lastState = sut.get();
+      command.run(sut);
+      assert( command.postCondition( lastState, sut.get() ) );
 
-            command.run(sut);
-            assert( command.postCondition( lastState, sut.get() ) );
-         });
-
-         return true;
-      }
+      props.history.push(command);
    }
+
+   return true;
 }

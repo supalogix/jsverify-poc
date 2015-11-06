@@ -5,7 +5,8 @@ var Checker = require("./Checker.js");
 describe("Counter", function () {
 
    jsv.property("check properties #1", 
-      Generator.getCounterCommands(), 
-      Checker.getChecker());
+      jsv.bless({
+         generator: Generator }), 
+      Checker);
 
 });
